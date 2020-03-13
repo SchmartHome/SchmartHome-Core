@@ -1,0 +1,15 @@
+{
+  "name": "schmarthomecore",
+  "version": "0.1.0",
+  "description": "TODO Description",
+  "main": "app.js",
+  "scripts": {
+    "dev": "node ./main/App.js"
+  },
+  "repository": "SchmartHome-Core",
+  "author": "Unluckymichell, UnSamyPro",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
