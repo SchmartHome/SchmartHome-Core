@@ -68,4 +68,7 @@ wss.on('connection', function connection(ws) {
 
 
 
-module.exports;
+module.exports = {
+  lol: ' "" ',
+  andNOT: ' "; '
+};
