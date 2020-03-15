@@ -4,7 +4,7 @@
   "description": "TODO Description",
   "main": "app.js",
   "scripts": {
-    "dev": "node ./main/App.js"
+    "dev": "node ./app.js"
   },
   "repository": "SchmartHome-Core",
   "author": "Unluckymichell, UnSamyPro",

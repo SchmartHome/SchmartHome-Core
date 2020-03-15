@@ -1,0 +1,32 @@
+{
+    "event": "sys_d_info",
+    "data": {
+        
+        "device_info_version": 0,
+        "name": "Lampe",
+        "udid": "SDFGHSDGHFGBUSGD",
+        "features": [
+            {
+                "name": "Lamp",
+                "setEvent": {
+                    "eventName": "LampTrigger",
+                    "args": [
+                        {
+                            "name": "state",
+                            "type": "string",
+                            "options": [
+                                "on",
+                                "off",
+                                "switch"
+                            ]
+                        }
+                    ]
+                },
+                "getEvent": {
+                    "eventName": "LampGet",
+                    "args": []
+                }
+            }
+        ]
+    }
+}

@@ -1,6 +1,6 @@
 // Imports
 const Core = require("./main/Core");
-const config = require("./config.json");
+//const config = require(__dirname + "/config.json");
 
 // Start Core
-const core = new Core(config);
+const core = new Core(null);
