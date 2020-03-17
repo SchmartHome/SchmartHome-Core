@@ -1,5 +1,15 @@
-const events = require("events");
-const DeviceManager = require("./DeviceManager");
+import DeviceManager from "./DeviceManager/DeviceManager";
+
+export default class Core {
+    config: any;
+    deviceManager: DeviceManager;
+
+    constructor(config: any) {
+        this.config = config;
+        this.deviceManager = new DeviceManager(this);
+    }
+}
+
 // const sqlite3 = require("sqlite3").verbose();
 
 // const db = new sqlite3.Database(db_path, sqlite3.OPEN_READWRITE, err => {
@@ -15,11 +25,3 @@ const DeviceManager = require("./DeviceManager");
 //         if (err) console.error(err);
 //     });
 // });
-
-module.exports = class Core extends events.EventEmitter {
-    constructor(config) {
-        super();
-        this.config = config;
-        this.deviceManager = new DeviceManager();
-    }
-}

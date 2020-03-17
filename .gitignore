@@ -1,11 +1,11 @@
 # Visual Studio Code
 .vscode/
 
+# Typescript
+dist/
+
 # Node
 node_modules/
-
-# other
-config.json
 
 # Log file
 *.log
