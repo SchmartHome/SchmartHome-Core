@@ -3,30 +3,36 @@ import DeviceManager from "./DeviceManager";
 import Device from "./Device";
 import events from "events";
 import WebSocket from "ws";
+import DeviceFeature from "./DeviceFeature";
 
 /**
  * Contains and manages the web socket connection to the actual device.
  */
 export default class DeviceConnection extends events.EventEmitter {
-    deviceManager: DeviceManager;
+    deviceManager: DeviceManager
 
-    ws: WebSocket;
-    deviceData: any;
-    closed: boolean;
-    device: Device;
+    ws: WebSocket
+    closed: boolean
+    device: Device
+    deviceData: {  
+        device_info_versio: number
+        name: string
+        udid: string
+        features: [DeviceFeature]
+    };
 
     constructor(ws: WebSocket, deviceManager: DeviceManager) {
         super();
         this.deviceManager = deviceManager;
 
         this.ws = ws;
-        this.deviceData = {};
+        this.deviceData = null;
         this.closed = false;
         this.device = null;
 
         this.ws.on("close", () => {
             this.closed = true;
-            if(this.device) this.device.online = false;
+            if(this.device) this.device.updateConnection();
             if(this.device) this.deviceManager.emit("disconnect_device", this.device);
         });
 
@@ -45,7 +51,8 @@ export default class DeviceConnection extends events.EventEmitter {
             } 
             if(typeof message.event == "undefined") return;
             if(typeof message.data == "undefined") return;
-            super.emit(message.event, message.data);
+            this.emit(message.event, message.data);
+            this.device.emit(message.event, message.data);
         });
 
         this.ws.send(JSON.stringify({
@@ -87,7 +94,7 @@ export default class DeviceConnection extends events.EventEmitter {
             }
         })
     }
-    
+
     /**
      * Used internally to validate device data on connection initialisation.
      * @param data Device data (parsed from json)
