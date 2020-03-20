@@ -1,11 +1,9 @@
 import DeviceManager from "./DeviceManager/DeviceManager";
 
 export default class Core {
-    config: any;
     deviceManager: DeviceManager;
 
-    constructor(config: any) {
-        this.config = config;
+    constructor() {
         this.deviceManager = new DeviceManager(this);
     }
 }
