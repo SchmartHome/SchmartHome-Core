@@ -1,4 +1,5 @@
 import STATIC from "./STATIC";
+import CONFIG from "../CONFIG";
 import DeviceManager from "./DeviceManager";
 import Device from "./Device";
 import events from "events";
@@ -30,6 +31,11 @@ export default class DeviceConnection extends events.EventEmitter {
         this.closed = false;
         this.device = null;
 
+        this.ws.send(JSON.stringify({
+            event: STATIC.EVENTNAME.SEND.GET_DEVICE_INFO, 
+            data: CONFIG
+        }));
+
         this.ws.on("close", () => {
             this.closed = true;
             if(this.device) this.device.updateConnection();
@@ -54,11 +60,6 @@ export default class DeviceConnection extends events.EventEmitter {
             this.emit(message.event, message.data);
             this.device.emit(message.event, message.data);
         });
-
-        this.ws.send(JSON.stringify({
-            event: STATIC.EVENTNAME.SEND.GET_DEVICE_INFO, 
-            data: null
-        }));
 
         this.on(STATIC.EVENTNAME.RECEIVE.DEVICE_INFO, data => {
             let errLocation = this.verifyDeviceData(data);
